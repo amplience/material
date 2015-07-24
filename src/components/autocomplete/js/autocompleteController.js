@@ -527,7 +527,7 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $mdTheming,
     }
     function handleResults (matches) {
       cache[ term ] = matches;
-      if (searchText !== $scope.searchText || (searchText === $scope.searchText && searchText === '') return; //-- just cache the results if old request
+      if (searchText !== $scope.searchText || (searchText === $scope.searchText && searchText === '')) return; //-- just cache the results if old request
       ctrl.matches = matches;
       ctrl.hidden  = shouldHide();
       if ($scope.selectOnMatch) selectItemOnMatch();
