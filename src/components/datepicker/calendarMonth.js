@@ -34,6 +34,16 @@
             monthCtrl.generateContent();
           }
         });
+
+        // Since min and max date are only considered when building up the calendar, we must
+        // regenerate content if we want to respond to these date limit changes.
+        scope.$watch(function() {
+          return monthCtrl.minDate + calendarCtrl.maxDate;
+        }, function(range, oldRange) {
+          if (range != oldRange) {
+            monthCtrl.generateContent();
+          }
+        });
       }
     };
   }
@@ -144,19 +154,19 @@
 
     return cell;
   };
-  
+
   /**
    * Check whether date is in range and enabled
    * @param {Date=} opt_date
    * @return {boolean} Whether the date is enabled.
    */
   CalendarMonthCtrl.prototype.isDateEnabled = function(opt_date) {
-    return this.dateUtil.isDateWithinRange(opt_date, 
-          this.calendarCtrl.minDate, this.calendarCtrl.maxDate) && 
+    return this.dateUtil.isDateWithinRange(opt_date,
+          this.calendarCtrl.minDate, this.calendarCtrl.maxDate) &&
           (!angular.isFunction(this.calendarCtrl.dateFilter)
            || this.calendarCtrl.dateFilter(opt_date));
   }
-  
+
   /**
    * Builds a `tr` element for the calendar grid.
    * @param rowNumber The week number within the month.
